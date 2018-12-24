@@ -1,0 +1,41 @@
+.movie-item {
+  position: relative;
+  width: 25%;
+  min-width: 300px;
+  height: 300px;
+  margin: 10px;
+  color: white;
+  &:after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 1px solid white;
+    transition: color .2s,background-color .2s,border-color .2s;
+    z-index: 1;
+  }
+  .movie-item-content {
+    height: calc(55% - 10px); // image - margin
+    margin: 0 10px 10px 10px;
+    overflow: hidden;
+    .movie-item-name {
+      margin: 10px 0;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .movie-item-plot {
+      font-size: 14px;
+    }
+  }
+  .movie-item-image-wrapper {
+    height: 45%;
+    .movie-item-image {
+      background-repeat: no-repeat;
+      background-position: top center;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

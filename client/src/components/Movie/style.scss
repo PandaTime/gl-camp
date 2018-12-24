@@ -1,0 +1,51 @@
+// VIEW
+.movie-container {
+  display: flex;
+  margin: 10px;
+  color: white;
+  .movie-image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 10px 10px 10px;
+    .movie-name {
+      margin: 10px 0;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .movie-plot {
+      font-size: 14px;
+    }
+  }
+  .movie-content {
+    margin: 0 10px;
+  }
+}
+
+// EDIT
+.movie-edit {
+  display: flex;
+  margin: 10px;
+  color: white;
+  .movie-edit-form {
+    width: 100%;
+  }
+  .movie-edit-column {
+    margin: 20px;
+    label, input, textarea {
+      width: 100%;
+    }
+    input, textarea {
+      box-sizing: border-box;
+      margin-top: 7px;
+      padding: 9px 13px;
+      border-radius: 3px;
+    }
+    textarea {
+      height: 80px;
+      min-height: 25px;
+      resize: vertical;
+    }
+  }
+}
