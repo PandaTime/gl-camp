@@ -35,6 +35,14 @@ MOVIES.data.Search.forEach((movie) => {
 
 export const MoviesApi = {
   getMovies: () => new Promise((res) => res(MOVIES)),
+  getMovieById: (id) => new Promise((res, rej) => {
+    const movie = MOVIE_DETAILS.find(m => m.imdbID === id);
+    if (movie) {
+      res({ data: movie });
+    } else {
+      rej({ err: 'fild not found'});
+    }
+  }),
   updateMovie: (movieId, movieData) => new Promise((res) => {
     const moviesList = MOVIES.data.Search;
     const movieIndex = moviesList.findIndex(m => m.imdbID === movieId);
