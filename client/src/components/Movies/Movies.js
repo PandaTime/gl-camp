@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MovieItem from './MovieItem/MovieItem';
-import Movie from 'src/components/Movie/Movie';
-import { connectImpdApi } from 'src/components/ImdbHOC';
+import Movie from 'client/components/Movie/Movie';
+import { connectImpdApi } from 'client/components/ImdbHOC';
 import './style.scss';
 
 class Movies extends Component {

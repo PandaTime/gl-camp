@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MoviesApi } from 'src/api';
+import { MoviesApi } from 'client/api';
 
 export function connectImpdApi(WrappedComponent) {
   return class OmdbWrapper extends Component {
