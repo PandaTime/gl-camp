@@ -29,26 +29,64 @@ const MOVIE_DETAILS = [
   { "Title": "Batman: The Dark Knight Returns, Part 1", "Year": "2012", "Rated": "PG-13", "Released": "25 Sep 2012", "Runtime": "76 min", "Genre": "Animation, Action, Adventure, Crime, Drama, Sci-Fi, Thriller", "Director": "Jay Oliva", "Writer": "Bob Kane (character created by: Batman), Frank Miller (comic book), Klaus Janson (comic book), Bob Goodman", "Actors": "Peter Weller, Ariel Winter, David Selby, Wade Williams", "Plot": "Batman has not been seen for ten years. A new breed of criminal ravages Gotham City, forcing 55-year-old Bruce Wayne back into the cape and cowl. But, does he still have what it takes to fight crime in a new era?", "Language": "English", "Country": "USA", "Awards": "5 nominations.", "Poster": "https://m.media-amazon.com/images/M/MV5BMzIxMDkxNDM2M15BMl5BanBnXkFtZTcwMDA5ODY1OQ@@._V1_SX300.jpg", "Ratings": [{ "Source": "Internet Movie Database", "Value": "8.0/10" }, { "Source": "Rotten Tomatoes", "Value": "100%" }], "Metascore": "N/A", "imdbRating": "8.0", "imdbVotes": "45,542", "imdbID": "tt2313197", "Type": "movie", "DVD": "25 Sep 2012", "BoxOffice": "N/A", "Production": "WARNER BROTHERS PICTURES", "Website": "https://www.facebook.com/BatmanTheDarkKnightReturns", "Response": "True" },
 ];
 
-MOVIES.data.Search.forEach((movie) => {
-  movie.Plot = MOVIE_DETAILS.find(m => m.imdbID === movie.imdbID).Plot;
-});
+
+const EMPTY_OBJECT = {};
 
 export const MoviesApi = {
-  getMovies: () => new Promise((res) => res(MOVIES)),
+  /**
+   * @param {Object} [options]
+   * @param {String} [options.query] - query
+   * @param {String} [options.page] - page number
+   * @param {Boolean} [options.detailedResult] - whether detailed results should be returned (with plot, etc.) Note: a lot of additional requests occurs
+   * @return {Promise}
+   */
+  getMovies: (options = EMPTY_OBJECT) => {
+    return new Promise((res) => {
+      let result;
+      if (options.detailedResult) {
+        result = Promise.all(MOVIES.data.Search.map(movie => MoviesApi.getMovieById(movie.imdbID)))
+          .then((movies) => {
+            return { data: {
+              Search: movies.map(movie => movie.data),
+              totalResults: MOVIES.data.totalResults,
+              Response: MOVIES.data.Response,
+            }};
+          })
+      } else {
+        result = MOVIES;
+      }
+      res(result);
+    })
+  },
   getMovieById: (id) => new Promise((res, rej) => {
     const movie = MOVIE_DETAILS.find(m => m.imdbID === id);
     if (movie) {
       res({ data: movie });
     } else {
-      rej({ err: 'fild not found'});
+      rej({ err: 'movie not found'});
     }
   }),
   updateMovie: (movieId, movieData) => new Promise((res) => {
+    // Not great, mutating objects, huh. But, well, can deal with that, that's just a moak.
+    // Updating MOVIES
     const moviesList = MOVIES.data.Search;
     const movieIndex = moviesList.findIndex(m => m.imdbID === movieId);
     if (~movieIndex) {
       moviesList[movieIndex] = Object.assign({}, movieData);
     }
+    // Updating MOVIE_DETAILS
+    const movieDetailsIndex = MOVIE_DETAILS.findIndex(m => m.imdbID === movieId);
+    if (~movieDetailsIndex) {
+      MOVIE_DETAILS[movieDetailsIndex] = Object.assign({}, movieData);
+    }
     res({ data: Object.assign({}, moviesList[movieIndex]) });
   }),
+}
+
+
+export const MOVIE_PARAMS = {
+  imdbID: 'imdbID',
+  Plot: 'Plot',
+  Title: 'Title',
+  Poster: 'Poster',
 }

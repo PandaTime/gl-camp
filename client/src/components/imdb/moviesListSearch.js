@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { MoviesApi } from 'client/api';
 
-export function connectImpdApi(WrappedComponent) {
-  return class OmdbWrapper extends Component {
+export default function (options, WrappedComponent) {
+  class OmdbMoviesListSearchWrapper extends Component {
     constructor(props) {
       super(props);
       this.state = {
         movies: [],
         totalResults: 0,
+        fetched: false,
       };
       this.updateMovie = this.updateMovie.bind(this);
     }
@@ -24,6 +25,7 @@ export function connectImpdApi(WrappedComponent) {
           { movies },
           () => res({
             success: true,
+            fetched: true,
             movie: Object.assign({}, this.updateMovie),
           })
         );
@@ -31,16 +33,21 @@ export function connectImpdApi(WrappedComponent) {
     }
 
     fetchMovies() {
-      MoviesApi.getMovies()
+      MoviesApi.getMovies({ detailedResult: true })
         .then((res) => this.setState({
           movies: res.data.Search,
           totalResults: res.data.totalResults,
-        })
-      );
+        }));
     }
+    
+    updateMovie = () => {
+      console.log('updateMovie#listSearch');
+    }
+
     render() {
-      console.log('this.state', this.state);
-      return <WrappedComponent {...this.props} {...this.state} updateMovie={this.updateMovie}/>
+      return <WrappedComponent {...this.props} {...this.state} updateMovie={this.updateMovie} />
     }
   }
+
+  return OmdbMoviesListSearchWrapper;
 }

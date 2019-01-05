@@ -1,10 +1,14 @@
-.movie-item {
+.movie-card {
   position: relative;
   width: 25%;
   min-width: 300px;
   height: 300px;
   margin: 10px;
   color: white;
+  a {
+    text-decoration: none;
+    color: white;
+  }
   &:after {
     content: " ";
     position: absolute;
@@ -14,24 +18,25 @@
     right: 0;
     border: 1px solid white;
     transition: color .2s,background-color .2s,border-color .2s;
+    pointer-events: none;
     z-index: 1;
   }
-  .movie-item-content {
+  .movie-card-content {
     height: calc(55% - 10px); // image - margin
     margin: 0 10px 10px 10px;
     overflow: hidden;
-    .movie-item-name {
+    .movie-card-name {
       margin: 10px 0;
       font-size: 14px;
       font-weight: bold;
     }
-    .movie-item-plot {
+    .movie-card-plot {
       font-size: 14px;
     }
   }
-  .movie-item-image-wrapper {
+  .movie-card-image-wrapper {
     height: 45%;
-    .movie-item-image {
+    .movie-card-image {
       background-repeat: no-repeat;
       background-position: top center;
       width: 100%;
