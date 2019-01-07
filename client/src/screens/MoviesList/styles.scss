@@ -1,0 +1,18 @@
+.movie-list-item {
+  .movie-content {
+    width: 100%;
+    padding: 12px;
+    border-top-width: 1px;
+    border-bottom: 1px solid #4d4d4d;
+    border-color: rgba(221,221,221,0.15);
+    cursor: pointer;  
+    &:hover {
+      background-color: rgba(221,221,221,0.1);
+    }
+  }
+  
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}

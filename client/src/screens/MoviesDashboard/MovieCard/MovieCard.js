@@ -10,18 +10,18 @@ const MovieCard = (props) => {
   const shortPlot = props.plot.length > MAX_PLOT_LENGTH ? (props.plot.substr(0, MAX_PLOT_LENGTH).trim() + '...') : props.plot;
   return (
     <div className="movie-card">
-    <Link to={`/edit/${props.id}`}>
-      <div className="movie-card-image-wrapper">
-        <div className="movie-card-image" style={{ backgroundImage: `url(${props.poster})` }}></div>
-      </div>
-      <div className="movie-card-content">
-        <h3 className="movie-card-name">
-          {props.title}
-        </h3>
-        <div className="movie-card-plot">
-          {shortPlot}
+      <Link to={`/edit/${props.id}`}>
+        <div className="movie-card-image-wrapper">
+          <div className="movie-card-image" style={{ backgroundImage: `url(${props.poster})` }}></div>
         </div>
-      </div>
+        <div className="movie-card-content">
+          <h3 className="movie-card-name">
+            {props.title}
+          </h3>
+          <div className="movie-card-plot">
+            {shortPlot}
+          </div>
+        </div>
       </Link>
     </div>
   );

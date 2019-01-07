@@ -30,21 +30,27 @@ const MOVIE_DETAILS = [
 ];
 
 
-const EMPTY_OBJECT = {};
+const EMPTY_OBJECT = {
+  
+};
 
 export const MoviesApi = {
   /**
    * @param {Object} [options]
    * @param {String} [options.query] - query
-   * @param {String} [options.page] - page number
+   * @param {Number} [options.page] - page number
    * @param {Boolean} [options.detailedResult] - whether detailed results should be returned (with plot, etc.) Note: a lot of additional requests occurs
    * @return {Promise}
    */
   getMovies: (options = EMPTY_OBJECT) => {
+    if (!options.numberOfEntities) {
+      options.numberOfEntities = 10;
+    }
     return new Promise((res) => {
       let result;
       if (options.detailedResult) {
-        result = Promise.all(MOVIES.data.Search.map(movie => MoviesApi.getMovieById(movie.imdbID)))
+        // returning only first 5 movies
+        result = Promise.all(MOVIES.data.Search.slice(0, 5).map(movie => MoviesApi.getMovieById(movie.imdbID)))
           .then((movies) => {
             return { data: {
               Search: movies.map(movie => movie.data),
@@ -72,12 +78,13 @@ export const MoviesApi = {
     const moviesList = MOVIES.data.Search;
     const movieIndex = moviesList.findIndex(m => m.imdbID === movieId);
     if (~movieIndex) {
-      moviesList[movieIndex] = Object.assign({}, movieData);
+      moviesList[movieIndex] = Object.assign({}, moviesList[movieIndex], movieData);
     }
     // Updating MOVIE_DETAILS
     const movieDetailsIndex = MOVIE_DETAILS.findIndex(m => m.imdbID === movieId);
     if (~movieDetailsIndex) {
-      MOVIE_DETAILS[movieDetailsIndex] = Object.assign({}, movieData);
+      // console.log('MOVIE_DETAILS[movieDetailsIndex]', Object.assign({}, MOVIE_DETAILS[movieDetailsIndex], movieData));
+      MOVIE_DETAILS[movieDetailsIndex] = Object.assign({}, MOVIE_DETAILS[movieDetailsIndex], movieData);
     }
     res({ data: Object.assign({}, moviesList[movieIndex]) });
   }),
@@ -89,4 +96,27 @@ export const MOVIE_PARAMS = {
   Plot: 'Plot',
   Title: 'Title',
   Poster: 'Poster',
+  Year: 'Year',
 }
+export const DETAILED_FIELDS = [
+  "Rated",
+  "Released",
+  "Runtime",
+  "Genre",
+  "Director",
+  "Writer",
+  "Actors",
+  "Plot",
+  "Language",
+  "Country",
+  "Awards",
+  "Ratings",
+  "Metascore",
+  "imdbRating",
+  "imdbVotes",
+  "DVD",
+  "BoxOffice",
+  "Production",
+  "Website",
+  "Response"
+];

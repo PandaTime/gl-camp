@@ -29,6 +29,10 @@ export function connectImpdApi(options = DEFAULT_OPTIONS) {
     throw new Error('Path to query should be passed for "fetchById" options - no default value possible: ' + JSON.stringify(options))
   }
 
+  if (options.fetchedFields.length === 0) {
+    console.warn('"fetchedFields" are empty!');
+  }
+
   if (Array.isArray(options.fetchedFields)) {
     options.fetchedFields.forEach((field) => {
       if (!MOVIE_PARAMS.hasOwnProperty(field)) {

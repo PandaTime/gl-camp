@@ -10,8 +10,7 @@ const AppRouting = () => (
       <Route path="/list" exact component={MoviesList} />
       <Route path="/dashboard" exact component={MoviesDashboard} />
       <Route path="/edit/:id" exact component={MovieEdit} />
-      {/* <Route component={MoviesList} /> */}
-      <Route component={MoviesDashboard} />
+      <Route component={MoviesList} />
     </Switch>
   </div>
 )

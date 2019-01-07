@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connectImpdApi } from 'client/components/imdb';
+import { connectImpdApi, MOVIE_PARAMS } from 'client/components/imdb';
 import MovieCard from './MovieCard/MovieCard';
 
 import './styles.scss';
@@ -24,5 +24,5 @@ MoviesDashboards.propTypes = {
 
 export default connectImpdApi({
   fetchByQuery: true,
-  fetchedField: [],
+  fetchedFields: [MOVIE_PARAMS.imdbID, MOVIE_PARAMS.Title, MOVIE_PARAMS.Poster, MOVIE_PARAMS.Plot],
 })(MoviesDashboards);

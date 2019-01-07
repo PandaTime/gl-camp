@@ -32,9 +32,14 @@ class MovieEdit extends Component {
       })
   }
 
-  onCancel = (e) => {
+  onReset = (e) => {
     e.preventDefault();
-    console.log('MovieEdit#onCancel');
+    this.setState({ ...this.props.movie });
+  }
+
+  onReturn = (e) => {
+    e.preventDefault();
+    console.log('MovieEdit#onReturn');
   }
   
   onChange = (e) => {
@@ -64,7 +69,8 @@ class MovieEdit extends Component {
           </div>
           <div className="submit-buttons movie-edit-column">
             <button type="submit" onClick={this.onSubmit}>Save</button>
-            <button type="button" onClick={this.props.onCancel}>Cancel</button>
+            <button type="submit" onClick={this.onReset}>Reset Form</button>
+            <button type="button" onClick={this.onReturn}>Return</button>
           </div>
         </form>
       </div>

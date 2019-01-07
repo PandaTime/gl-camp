@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MoviesApi } from 'client/api';
+import { MoviesApi, DETAILED_FIELDS } from 'client/api';
 
 export default function (options, WrappedComponent) {
   class OmdbMoviesListSearchWrapper extends Component {
@@ -32,12 +32,28 @@ export default function (options, WrappedComponent) {
       });
     }
 
+    shouldDetailyFetch () {
+      return options.fetchedFields.some(field => DETAILED_FIELDS.includes(field));
+    }
+
     fetchMovies() {
-      MoviesApi.getMovies({ detailedResult: true })
-        .then((res) => this.setState({
-          movies: res.data.Search,
-          totalResults: res.data.totalResults,
-        }));
+      MoviesApi.getMovies({ detailedResult: this.shouldDetailyFetch() })
+        .then((res) => {
+          this.setState({
+            movies: res.data.Search.map(this.filterRequiredFields),
+            totalResults: res.data.totalResults,
+          });
+        });
+    }
+
+    filterRequiredFields = (fetchedMovie) => {
+      const movie = {};
+      Object.keys(fetchedMovie).forEach((key) => {
+        if (options.fetchedFields.includes(key)) {
+          movie[key] = fetchedMovie[key];
+        }
+      });
+      return movie;
     }
     
     updateMovie = () => {
