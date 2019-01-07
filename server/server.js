@@ -1,9 +1,13 @@
 const next = require('next');
 const { parse } = require('url');
 const { createServer } = require('http');
+const routes = require('./src/routes');
 
-const app = next({ dir: 'src', dev: false });
-const handle = app.getRequestHandler()
+const app = next({ dir: 'src', dev: process.env.NODE_ENV !== 'production' });
+const handle = routes.getRequestHandler(app, ({ req, res, route, query }) => {
+  app.render(req, res, route.page, query);
+});
+// const handle = app.getRequestHandler();
 const PORT = 3001;
 
 app.prepare().then(() => {

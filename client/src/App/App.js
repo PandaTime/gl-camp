@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Header from './Header/Header';
+import Routes from 'client/routes';
+import Header from 'client/components/Header/Header';
 import './App.scss';
 
 class App extends Component {
@@ -7,10 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <div className="app-content-wrapper">
-          {this.props.children}  
-        </div>
-        
+        <Routes />
       </div>
     );
   }

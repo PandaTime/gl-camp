@@ -7,7 +7,6 @@ import './styles.scss';
 
 class MoviesDashboards extends Component {
   render() {
-    console.log('MoviesDashboards', this.props);
     return (
       <div className="movies-dashboard">
         {this.props.movies.map((movie) => (

@@ -1,5 +1,13 @@
-import React from 'react'
-import ClientApp from 'client/components/App';
-import 'client/index.scss';
+import React, { Component } from 'react';
+import { connectReactRouter } from '../components/reactRouterHoC';
+import App from 'client/App/App';
 
-export default () => <ClientApp />
+class MoviesList extends Component {
+  render() {
+    return <App />
+  }
+}
+
+const MovieListWithRouter = connectReactRouter({ url: '/' })(MoviesList);
+
+export default () => <MovieListWithRouter />;
