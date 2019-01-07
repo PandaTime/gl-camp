@@ -36,7 +36,6 @@ export function connectReactRouter(options = {}) {
         this.staticRouterContex = {
           url: props.routerUrl || "/",
         };
-        console.log('props', props);
       }
       
       // Only on client side
