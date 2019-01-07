@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 import { connectImpdApi, MOVIE_PARAMS } from 'client/components/imdb';
 import './style.scss';
 
+@inject('historyStore')
+@withRouter // otherwise routing is broken lulz
+@observer
 class MovieEdit extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +44,9 @@ class MovieEdit extends Component {
 
   onReturn = (e) => {
     e.preventDefault();
-    console.log('MovieEdit#onReturn');
+    let prevUrl = this.props.historyStore.getPrevUrl();
+    prevUrl = this.props.location.pathname === prevUrl ? '/' : prevUrl;
+    this.props.history.push(prevUrl);
   }
   
   onChange = (e) => {
