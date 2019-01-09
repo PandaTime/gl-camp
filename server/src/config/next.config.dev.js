@@ -19,6 +19,8 @@ function withClientProject(nextConfig = {}) {
       config.module.rules.forEach((rule) => {
         if (!/(js|jsx)/.test(rule.test)) { return; }
         rule.include.push(clientSrcPath);
+        // It won't show any errors, but it doesnot work
+        // rule.use.options.presets = ["mobx"];
       })
       return config;
     },

@@ -4,7 +4,7 @@ import App from 'client/App/App';
 
 class MovieEdit extends Component {
   render() {
-    return <App />
+    return <App {...this.props}/>
   }
 }
 

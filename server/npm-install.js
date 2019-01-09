@@ -43,10 +43,20 @@ function mergeDependenciesToServer(serverPackageJson, clientPackageJson) {
 
   if (serverPackageJson.devDependencies || clientPackageJson.devDependencies) {
     serverPackageJson.devDependencies = mergeObjects(serverPackageJson.devDependencies, clientPackageJson.devDependencies);
+    Object.keys(serverPackageJson.devDependencies).forEach((devDep) => {
+      if (serverPackageJson.dependencies[devDep]) {
+        delete serverPackageJson.devDependencies[devDep];
+      }
+    })
   }
 
   if (serverPackageJson.optionalDependencies || clientPackageJson.optionalDependencies) {
     serverPackageJson.optionalDependencies = mergeObjects(serverPackageJson.optionalDependencies, clientPackageJson.optionalDependencies);
+    Object.keys(serverPackageJson.optionalDependencies).forEach((devDep) => {
+      if (serverPackageJson.dependencies[devDep] || serverPackageJson.devDependencies[devDep]) {
+        delete serverPackageJson.optionalDependencies[devDep];
+      }
+    });
   }
 }
 

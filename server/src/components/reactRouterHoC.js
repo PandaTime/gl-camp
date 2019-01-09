@@ -34,7 +34,7 @@ export function connectReactRouter(options = {}) {
           client: false,
         }
         this.staticRouterContex = {
-          url: props.routerUrl || "/",
+          url: props.routerUrl || options.url || "/",
         };
       }
       
@@ -62,17 +62,18 @@ export function connectReactRouter(options = {}) {
       }
 
       renderWithStaticRouter() {
+        console.log('this.staticRouterContex.url', this.staticRouterContex.url);
         return (
           <StaticRouter location={this.staticRouterContex.url} context={this.staticRouterContex}>
-              <WrappedComponent {...this.props} />
+            <WrappedComponent {...this.props} />
           </StaticRouter>
         );
       }
 
       renderWithBrowserRouter() {
         return (
-          <Router history={getHistory()}>
-            <WrappedComponent {...this.props } />
+          <Router history={getHistory()}> 
+            <WrappedComponent {...this.props} />
           </Router>
         );
       }

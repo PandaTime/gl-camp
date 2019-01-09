@@ -5,8 +5,9 @@ import Routes from 'client/routes';
 import Header from 'client/components/Header/Header';
 import './App.scss';
 
-@inject('historyStore')
-@withRouter // otherwise routing is broken lulz
+// Removed @decorators because of nextjs
+// @inject('historyStore')
+// @withRouter // otherwise routing is broken lulz
 class App extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
@@ -23,4 +24,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default inject('historyStore')(withRouter(App));

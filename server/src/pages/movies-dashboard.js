@@ -4,7 +4,7 @@ import App from 'client/App/App';
 
 class MoviesDashboard extends Component {
   render() {
-    return <App />
+    return <App {...this.props} />
   }
 }
 

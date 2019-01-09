@@ -4,7 +4,7 @@ import App from 'client/App/App';
 
 class MoviesList extends Component {
   render() {
-    return <App />
+    return <App {...this.props} />
   }
 }
 

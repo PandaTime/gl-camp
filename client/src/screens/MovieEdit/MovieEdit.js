@@ -5,9 +5,9 @@ import { inject, observer } from 'mobx-react';
 import { connectImpdApi, MOVIE_PARAMS } from 'client/components/imdb';
 import './style.scss';
 
-@inject('historyStore')
-@withRouter // otherwise routing is broken lulz
-@observer
+// @inject('historyStore')
+// @withRouter // otherwise routing is broken lulz
+// @observer
 class MovieEdit extends Component {
   constructor(props) {
     super(props);
@@ -44,8 +44,7 @@ class MovieEdit extends Component {
 
   onReturn = (e) => {
     e.preventDefault();
-    let prevUrl = this.props.historyStore.getPrevUrl();
-    prevUrl = this.props.location.pathname === prevUrl ? '/' : prevUrl;
+    const prevUrl = this.props.historyStore.getPrevUrl();
     this.props.history.push(prevUrl);
   }
   
@@ -102,8 +101,10 @@ MovieEdit.propTypes = {
   updateMovie: PropTypes.func.isRequired,
 }
 
-export default connectImpdApi({
+const withImdb = connectImpdApi({
   fetchById: true,
   pathToQuery: "match.params.id",
   fetchedFields: [MOVIE_PARAMS.Plot, MOVIE_PARAMS.imdbID, MOVIE_PARAMS.Poster, MOVIE_PARAMS.Title],
-})(MovieEdit);
+})(MovieEdit)
+
+export default inject('historyStore')(withRouter(observer(withImdb)));

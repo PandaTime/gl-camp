@@ -1,8 +1,8 @@
 import historyStore from './historyStore';
 
-const stores = {
-  historyStore,
-};
+const stores = () => ({
+  historyStore: new historyStore(document.location.pathname),
+});
 
 export default stores;
 

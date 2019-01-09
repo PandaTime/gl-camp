@@ -1,9 +1,15 @@
-import { observable, action } from 'mobx';
+import { decorate, observable, action } from 'mobx';
 
 export class historyStore {
-  @observable previousUrl = document.location.pathname;
+  // @observable previousUrl;
+  previousUrl;
 
-  @action setPrevUrl(url) {
+  constructor(initialUrl = "/") {
+    this.previousUrl = initialUrl;
+  }
+
+  // @action setPrevUrl(url) {
+  setPrevUrl(url) {
     this.previousUrl = url;
   }
 
@@ -13,5 +19,11 @@ export class historyStore {
 
 }
 
-export default new historyStore();
+decorate(historyStore, {
+  previousUrl: observable,
+  setPrevUrl: action,
+});
+
+
+export default historyStore;
 

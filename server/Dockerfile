@@ -1,13 +1,19 @@
 FROM node:10.13-alpine
 
-WORKDIR /app/server
 
-# Install deps
-COPY ./server/package* ./
+
+COPY ./client/src /app/client/src
+COPY ./client/package.json /app/client
+COPY ./server /app/server
+
+# TODO: create link
+WORKDIR /app/client
 RUN npm install
 
-COPY ./client/src app/client/src
-COPY ./server /app/server
+WORKDIR /app/server
+RUN npm run npm_install
+RUN npm rebuild node-sass
+RUN npm run build
 
 # Expose ports (for orchestrators and dynamic reverse proxies)
 EXPOSE 3001

@@ -19,6 +19,7 @@ function withClientProject(nextConfig = {}) {
       config.module.rules.forEach((rule) => {
         if (!/(js|jsx)/.test(rule.test)) { return; }
         rule.include.push(clientSrcPath);
+        // rule.use.options.presets = ["mobx"];
       })
       return config;
     },
