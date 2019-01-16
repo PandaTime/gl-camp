@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { connectImpdApi, MOVIE_PARAMS } from 'client/components/imdb';
+import { connectImpdApi } from 'client/components/imdb';
 import MovieListItem from './MovieListItem';
 
 import './styles.scss';
 
-class MoviesList extends Component {
-  render() {
-    return (
-      <div className="movies-list">
-        {this.props.movies.map((movie) => (
-          <MovieListItem key={movie.imdbID} imdbID={movie.imdbID} Title={movie.Title} Year={movie.Year} />
-        ))}
-      </div>
-    );
-  }
+const MoviesList = (props) => {
+  return (
+    <div className="movies-list">
+      {props.movies.map((movie) => (
+        <MovieListItem key={movie.imdbID} {...movie} />
+      ))}
+    </div>
+  );
 }
 
 MoviesList.propTypes = {
@@ -23,5 +21,4 @@ MoviesList.propTypes = {
 
 export default connectImpdApi({
   fetchByQuery: true,
-  fetchedFields: [MOVIE_PARAMS.imdbID, MOVIE_PARAMS.Title, MOVIE_PARAMS.Year],
 })(MoviesList);

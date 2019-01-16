@@ -7,16 +7,17 @@ import './style.scss';
 const MAX_PLOT_LENGTH = 230;
 
 const MovieCard = (props) => {
-  const shortPlot = props.plot.length > MAX_PLOT_LENGTH ? (props.plot.substr(0, MAX_PLOT_LENGTH).trim() + '...') : props.plot;
+  const { imdbID, Plot, Poster, Title } = props;
+  const shortPlot = Plot.length > MAX_PLOT_LENGTH ? (Plot.substr(0, MAX_PLOT_LENGTH).trim() + '...') : Plot;
   return (
     <div className="movie-card">
-      <Link to={`/edit/${props.id}`}>
+      <Link to={`/edit/${imdbID}`}>
         <div className="movie-card-image-wrapper">
-          <div className="movie-card-image" style={{ backgroundImage: `url(${props.poster})` }}></div>
+          <div className="movie-card-image" style={{ backgroundImage: `url(${Poster})` }}></div>
         </div>
         <div className="movie-card-content">
           <h3 className="movie-card-name">
-            {props.title}
+            {Title}
           </h3>
           <div className="movie-card-plot">
             {shortPlot}
@@ -28,10 +29,10 @@ const MovieCard = (props) => {
 }
 
 MovieCard.propTypes = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  poster: PropTypes.string.isRequired,
-  plot: PropTypes.string.isRequired,
+  imdbID: PropTypes.string.isRequired,
+  Title: PropTypes.string.isRequired,
+  Poster: PropTypes.string.isRequired,
+  Plot: PropTypes.string.isRequired,
 }
 
 export default MovieCard;

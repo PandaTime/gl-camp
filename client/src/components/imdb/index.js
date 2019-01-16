@@ -1,11 +1,11 @@
-import movieItemSearch from './movieItemSearch';
-import moviesListSearch from './moviesListSearch';
+import imdbHocFn from './imdbHoc';
 import { MOVIE_PARAMS } from 'client/api';
 
 const DEFAULT_OPTIONS = {
   fetchById: false,
   fetchByQuery: true,
-  fetchedFields: [],
+  detailedResult: false,
+  limit: 10,
 };
 /**
  * @param {Object} options
@@ -14,7 +14,8 @@ const DEFAULT_OPTIONS = {
  * @param {String} [options.pathToQuery] - props path to search query string for movies search(fetchById|fetchByQuery, will be id|string accordingly). 
  * If ommited search query will be set to "*"
  * @param {String} [options.pathToPage] - page that should be returned. If ommited "page" will be set to "0"
- * @param {String} [options.fetchedFields] - list of fetched fields that should be imported. If ommited it will be fetch according API logic
+ * @param {Boolean} [options.detailedResult] - whether fetched query should be detailed(only applicable to list)
+ * @param {Number} [options.limit] - number of results per page(only applicable to list)
  */
 export function connectImpdApi(options = DEFAULT_OPTIONS) {
   if (options.fetchById && options.fetchByQuery) {
@@ -29,33 +30,15 @@ export function connectImpdApi(options = DEFAULT_OPTIONS) {
     throw new Error('Path to query should be passed for "fetchById" options - no default value possible: ' + JSON.stringify(options))
   }
 
-  if (options.fetchedFields.length === 0) {
-    console.warn('"fetchedFields" are empty!');
-  }
-
-  if (Array.isArray(options.fetchedFields)) {
-    options.fetchedFields.forEach((field) => {
-      if (!MOVIE_PARAMS.hasOwnProperty(field)) {
-        throw new Error(`Invalid ${field} in "fetchedFields", passed: ` + JSON.stringify(options));
-      }
-    })
-  } else if (options.fetchedFields !== undefined && options.fetchedFields !== null ) {
-    throw new Error(`Invalid "fetchedFields" type, should be an Array, passed: ` + typeof fetchedFields);
-  }
-  
-
   const validatedOptions = {
     fetchById: options.fetchById,
     fetchByQuery: options.fetchById,
     pathToQuery: options.pathToQuery ? options.pathToQuery.split('.') : [],
     pathToPage: options.pathToPage ? options.pathToPage.split('.') : [],
-    fetchedFields: options.fetchedFields || [],
+    isResultDetailed: options.detailedResult,
+    limit: options.limit,
   }
-  
-  if (options.fetchById) {
-    return movieItemSearch.bind(null, validatedOptions);
-  }
-  return moviesListSearch.bind(null, validatedOptions);
+  return imdbHocFn.bind(null, validatedOptions);
 }
 
 export { MOVIE_PARAMS };

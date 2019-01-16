@@ -5,7 +5,7 @@ export class historyStore {
   previousUrl;
 
   constructor(initialUrl = "/") {
-    this.previousUrl = initialUrl;
+    this.previousUrl = initialUrl.includes('/edit/') ? "/" : initialUrl;
   }
 
   // @action setPrevUrl(url) {

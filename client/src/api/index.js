@@ -49,9 +49,9 @@ export const MoviesApi = {
     return new Promise((res) => {
       let result;
       if (options.detailedResult) {
-        // returning only first 5 movies
-        result = Promise.all(MOVIES.data.Search.slice(0, 5).map(movie => MoviesApi.getMovieById(movie.imdbID)))
-          .then((movies) => {
+        result = Promise.all(
+          MOVIES.data.Search.slice(0, options.numberOfEntities).map(movie => MoviesApi.getMovieById(movie.imdbID))
+        ).then((movies) => {
             return { data: {
               Search: movies.map(movie => movie.data),
               totalResults: MOVIES.data.totalResults,
