@@ -62,7 +62,6 @@ export function connectReactRouter(options = {}) {
       }
 
       renderWithStaticRouter() {
-        console.log('this.staticRouterContex.url', this.staticRouterContex.url);
         return (
           <StaticRouter location={this.staticRouterContex.url} context={this.staticRouterContex}>
             <WrappedComponent {...this.props} />

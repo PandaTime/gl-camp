@@ -10,4 +10,4 @@ class MoviesDashboard extends Component {
 
 const MovieListWithRouter = connectReactRouter({ url: '/dashboard' })(MoviesDashboard);
 
-export default () => <MovieListWithRouter />;
+export default MovieListWithRouter;
