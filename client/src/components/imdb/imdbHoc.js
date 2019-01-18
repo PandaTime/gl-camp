@@ -31,22 +31,21 @@ function getQuery(pathToQuery, props) {
   return movieId;
 }
 
-export default function (options, WrappedComponent) {
-
-
-  return function(props) {
-    const [moviesState, setMoviesState] = useState({ fetching: true, movies: [] });
-    useEffect(() => {
-      fetchData({ fetchById: options.fetchById, query: getQuery(options.pathToQuery, props), isResultDetailed: options.isResultDetailed, limit: options.limit })
-        .then((res) => {
-          setMoviesState({
-            fetching: false,
-            movies: res.movies,
-            totalResults: res.totalResults,
-          });
-        })
-    }, [props]);
-
-    return <WrappedComponent {...props} {...moviesState} updateMovie={updateMovie} />
+export default function (options) {
+  return function(WrappedComponent) {
+    return function(props) {
+      const [moviesState, setMoviesState] = useState({ fetching: true, movies: [] });
+      useEffect(() => {
+        fetchData({ fetchById: options.fetchById, query: getQuery(options.pathToQuery, props), isResultDetailed: options.isResultDetailed, limit: options.limit })
+          .then((res) => {
+            setMoviesState({
+              fetching: false,
+              movies: res.movies,
+              totalResults: res.totalResults,
+            });
+          })
+      }, [props]);
+      return <WrappedComponent {...props} {...moviesState} updateMovie={updateMovie} />
+    }
   }
 }

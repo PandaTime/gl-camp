@@ -38,7 +38,7 @@ export function connectImpdApi(options = DEFAULT_OPTIONS) {
     isResultDetailed: options.detailedResult,
     limit: options.limit,
   }
-  return imdbHocFn.bind(null, validatedOptions);
+  return imdbHocFn(validatedOptions);
 }
 
 export { MOVIE_PARAMS };

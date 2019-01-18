@@ -1,5 +1,6 @@
 import { decorate, observable, action } from 'mobx';
 
+// TODO: currently this store is useless(not used)-_-
 export class moviesStore {
   movies;
 
