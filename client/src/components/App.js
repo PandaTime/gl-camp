@@ -10,15 +10,6 @@ import './App.scss';
 // @inject('historyStore')
 // @withRouter // otherwise routing is broken lulz
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isServer: true,
-    }
-  }
-  componentDidMount() {
-    this.setState({ isServer: false });
-  }
   componentDidUpdate(prevProps) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
       this.props.historyStore.setPrevUrl(prevProps.location.pathname);

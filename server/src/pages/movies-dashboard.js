@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connectReactRouter } from '../components/reactRouterHoC';
 import MoviesDashboardClient from 'client/screens/MoviesDashboard/MoviesDashboard';
-import App from 'client/App/App';
+import App from 'client/components/App';
 
 const ServerComponent = {
   component: MoviesDashboardClient,

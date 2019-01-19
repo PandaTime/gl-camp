@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connectReactRouter } from '../components/reactRouterHoC';
 import MovieEditClient from 'client/screens/MovieEdit/MovieEdit';
-import App from 'client/App/App';
+import App from 'client/components/App';
 
 const ServerComponent = {
   component: MovieEditClient,
