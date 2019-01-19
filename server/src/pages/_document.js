@@ -2,7 +2,7 @@
 // Event handlers like onClick can't be added to this file
 
 // ./pages/_document.js
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Document, { Head, NextScript, Main } from 'next/document';
 

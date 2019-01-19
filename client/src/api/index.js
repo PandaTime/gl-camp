@@ -69,7 +69,7 @@ export const MoviesApi = {
     if (movie) {
       res({ data: movie });
     } else {
-      rej({ err: 'movie not found'});
+      rej({ err: `movie ${id} not found`});
     }
   }),
   updateMovie: (movieId, movieData) => new Promise((res) => {

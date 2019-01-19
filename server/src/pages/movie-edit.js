@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { connectReactRouter } from '../components/reactRouterHoC';
+import MovieEditClient from 'client/screens/MovieEdit/MovieEdit';
 import App from 'client/App/App';
+
+const ServerComponent = {
+  component: MovieEditClient,
+  matchPath: '/edit/:id',
+}
 
 class MovieEdit extends Component {
   render() {
-    return <App {...this.props}/>
+    return <App {...this.props} serverComponent={ServerComponent} />
   }
 }
 

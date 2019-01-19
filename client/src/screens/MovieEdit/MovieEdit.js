@@ -52,7 +52,7 @@ const MovieEdit = (props) => {
       setMovieState({ ...props.movies[0], _movieFetched: true });
     }
   }, [props]);
-  if (!movieState._movieFetched) return <div>Loading...</div>
+  if (!movieState._movieFetched) return <div>Loading movie...</div>
   return (
     <div className="movie-edit">
       <form onSubmit={onSubmit} className="movie-edit-form">
