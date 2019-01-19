@@ -1,5 +1,5 @@
 ### GL-camp
-Trying out new React features with Next.js(client can't be used as standalone package and with next.js server)
+Trying out new React features with Next.js(client can be used as standalone package and with next.js server)
 ## Structure
 - client - React client (doesn't depends on server)
 - server - SSR server with next.js(reusing components/screens from `client`).
